@@ -1,4 +1,4 @@
-name: Upload Reactd Frontend
+name: Upload Next.js Frontend
 
 on:
   push:
@@ -22,16 +22,19 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build app
+      - name: Build Next.js app
         run: npm run build
+
+      - name: Export Next.js app
+        run: npm run export
 
       - name: Upload to S3
         uses: jakejarvis/s3-sync-action@master
         with:
-          args: --acl public-read
+          args: --acl public-read --delete --cache-control "max-age=31536000"
         env:
-          SOURCE_DIR: .next/
-          AWS_S3_BUCKET: AKIATLSNTB727IEUGDXY
+          SOURCE_DIR: ./out  # Change to the directory where the exported files are located
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}  # Ensure this is set in your secrets
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_S3_BUCKET_REGION: ${{ secrets.AWS_S3_BUCKET_REGION }}
