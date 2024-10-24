@@ -12,7 +12,7 @@ jobs:
 
       # Install dependencies
       - name: Installing dependencies
-        run: cnpm i --force
+        run: cnpm ci
 
       # Build Next.js app
       - name: Building Next.js app
