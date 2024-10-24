@@ -12,11 +12,11 @@ jobs:
 
       # Install dependencies
       - name: Installing dependencies
-        run: npm i --force
+        run: cnpm i --force
 
       # Build Next.js app
       - name: Building Next.js app
-        run: npm run build
+        run: cnpm run build
 
       - name: Adding Environment Variables
         run: |
